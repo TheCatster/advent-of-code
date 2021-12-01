@@ -1,11 +1,15 @@
 # Advent of Code
 All my solutions through the years of advent to code, stored here and mirrored to GitHub @TheCatster.
 
-The solutions span across languages, including but not limited to:
-- Kotlin
+There is a quick and dirty Python script to automatically run all the various languages based on three inputs. The script is not designed to accomodate everyone's setup, so look at it before running.
+
+The currently supported languages in the script are:
+- C
 - C++
 - Julia
 - Python
-- C
-- Swift
-- Lisps of all assortments
+- Rust
+
+As I add solutions to other languages, I will update the script.
+
+This is way better than having a half dozen different repos for all this!
