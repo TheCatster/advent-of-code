@@ -4,6 +4,8 @@
 # VSCode settings (Only used vscode once but these files appeared)
 /.vscode/
 
+*.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -34,7 +34,7 @@ def execute_file(language: str, year: int, day: int) -> str:
 def retrieve_input(year: int, day: int):
     input_file = f"input/{year}/{day}"
 
-    if not os.path.isfile(input_file):
+    if not os.path.exists(input_file):
         # Example input URL: https://adventofcode.com/2020/day/7/input
         print("First time running this year and date: retrieving input!")
 

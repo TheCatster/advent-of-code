@@ -1,1 +1,3 @@
-print("Test for Python!")
+from .. import utils
+
+print(utils.read_input())
