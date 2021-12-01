@@ -1,5 +1,7 @@
 import typing
 import subprocess
+import os
+import requests
 
 __version__ = "0.1.0"
 
@@ -29,6 +31,35 @@ def execute_file(language: str, year: int, day: int) -> str:
         return "The file could not be executed."
 
 
+def retrieve_input(year: int, day: int):
+    input_file = f"input/{year}/{day}"
+
+    if not os.path.isfile(input_file):
+        # Example input URL: https://adventofcode.com/2020/day/7/input
+        print("First time running this year and date: retrieving input!")
+
+        try:
+            cookies = {"session": os.getenv("AOC_TOKEN")}
+        except EnvironmentError:
+            print("There is no token in the .env file! Add yours!")
+            return
+
+        url = f"https://adventofcode.com/{year}/day/{day}/input"
+        response = requests.get(
+            url,
+            cookies=cookies,
+            headers={"User-Agent": "advent-of-code thecatster"},
+        )
+
+        if response.ok:
+            with open(input_file, "w") as f:
+                f.write(response.text)
+                f.truncate(f.tell() - 1)
+        else:
+            print("Request for input failed.")
+            return
+
+
 def run():
     print(f"{intro_emojis} Welcome to Advent of Code! {intro_emojis}")
 
@@ -36,6 +67,7 @@ def run():
     year = input("Please enter the year number you would like to run: ")
     day = input("Please enter the day number you would like to run: ")
 
+    retrieve_input(year, day)
     print(execute_file(language, year, day))
 
     return

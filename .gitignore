@@ -1,3 +1,6 @@
+# Inputs are custom to each user
+/input/
+
 # VSCode settings (Only used vscode once but these files appeared)
 /.vscode/
 
