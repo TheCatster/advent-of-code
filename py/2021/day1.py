@@ -22,3 +22,7 @@ def part_two():
         ):
             increase_counter += 1
     print(f"Part Two: {increase_counter}")
+
+
+part_one()
+part_two()
