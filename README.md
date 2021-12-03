@@ -5,11 +5,7 @@ There is a quick and dirty Python script to automatically run all the various la
 
 The currently supported languages in the script are:
 - C
-- C++
-- Julia
-- Python
 - Rust
-
-As I add solutions to other languages, I will update the script.
+- Kotlin
 
 This is way better than having a half dozen different repos for all this!
