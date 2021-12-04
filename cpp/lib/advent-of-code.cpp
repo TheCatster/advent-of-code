@@ -1,7 +1,8 @@
 #include "advent-of-code.h"
 
-std::string read_input(int year, int day)
+std::vector<std::string> read_input(int year, int day)
 {
+    std::vector<std::string> inputVec;
     std::string line;
     std::stringstream input_file_name_raw;
     input_file_name_raw << "input/" << year << "/" << day;
@@ -14,7 +15,10 @@ std::string read_input(int year, int day)
     {
         while (getline(input_file, line))
         {
-            std::cout << line << std::endl;
+            if (line.size() > 0)
+            {
+                inputVec.push_back(line);
+            }
         }
         input_file.close();
     }
@@ -23,5 +27,5 @@ std::string read_input(int year, int day)
         std::cout << "Unable to open file" << std::endl;
     }
 
-    return "Hello, world!";
+    return inputVec;
 }

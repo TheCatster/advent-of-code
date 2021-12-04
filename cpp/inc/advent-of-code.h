@@ -5,7 +5,8 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <vector>
 
-std::string read_input(int year, int day);
+std::vector<std::string> read_input(int year, int day);
 
 #endif
