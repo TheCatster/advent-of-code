@@ -1,9 +1,30 @@
+## Generic
+.DS_Store
+.idea
+*.log
+tmp/
+.cache
+.dir-locals.el
+
+## CMake
+build
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
 # Inputs are custom to each user
 /input/
 
 # VSCode settings (Only used vscode once but these files appeared)
 /.vscode/
-
 *.DS_Store
 
 # Byte-compiled / optimized / DLL files
