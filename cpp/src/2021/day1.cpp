@@ -39,5 +39,5 @@ void part_two(std::vector<int> &int_input)
         increase_counter += int_input[i] > int_input[i - 3];
     }
 
-    std::cout << "Part One: " << increase_counter << std::endl;
+    std::cout << "Part Two: " << increase_counter << std::endl;
 }
