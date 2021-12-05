@@ -35,6 +35,8 @@ function retrieve_input {
 
         URL="https://adventofcode.com/$AOC_YEAR/day/$AOC_DAY/input"
 
+        mkdir -p "input/$AOC_YEAR"
+
         curl -L -b "session=$AOC_TOKEN" -H "User-Agent: advent-of-code thecatster" -o "$INPUT_FILE" "$URL"
 
         if [ ! $? -eq 0 ]; then
