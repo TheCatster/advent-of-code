@@ -1,5 +1,5 @@
 # Advent of Code
-All my solutions through the years of advent to code, stored here and mirrored to GitHub @TheCatster.
+All my solutions through the years of advent to code, mirrored from Sourcehut @thecatster.
 
 There is a shell script included to automatically run all the various languages based on year, day, and language file extension. The script is not designed to accomodate everyone's setup, so look at it before running.
 
