@@ -1,13 +1,14 @@
 #ifndef ADVENT_OF_CODE
 #define ADVENT_OF_CODE
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
-#include <vector>
 #include <algorithm>
 #include <bitset>
+#include <fstream>
+#include <iostream>
+#include <ranges>
+#include <sstream>
+#include <string>
+#include <vector>
 
 std::vector<std::string> read_input(int year, int day);
 
