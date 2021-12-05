@@ -6,6 +6,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <algorithm>
 
 std::vector<std::string> read_input(int year, int day);
 
