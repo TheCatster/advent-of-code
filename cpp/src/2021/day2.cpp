@@ -17,7 +17,7 @@ void part_one(std::vector<std::string> &raw_input) {
   int horizontal{0};
 
   for (auto line : raw_input) {
-    auto values{split(line, ' ')};
+    auto values{split(line, " ")};
     std::string command{values[0]};
     int value{std::stoi(values[1])};
 
@@ -39,7 +39,7 @@ void part_two(std::vector<std::string> &raw_input) {
   int horizontal{0};
 
   for (auto line : raw_input) {
-    auto values{split(line, ' ')};
+    auto values{split(line, " ")};
     std::string command{values[0]};
     int value{std::stoi(values[1])};
 
