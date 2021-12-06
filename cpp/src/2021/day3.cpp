@@ -13,14 +13,14 @@ int main() {
 }
 
 void part_one(std::vector<std::string> &raw_input) {
-  std::vector<int> counter_vec{12, 0};
+  std::vector<int> counter_vec(12, 0);
 
   std::string gamma_bin_str{""};
   std::string epsilon_bin_str{""};
 
   for (auto &raw_number : raw_input) {
     for (int i{0}; i < raw_number.size(); i++) {
-      std::string raw_digit{1, raw_number[i]};
+      std::string raw_digit{(1, raw_number[i])};
       int digit{std::stoi(raw_digit)};
 
       counter_vec[i] += digit;
