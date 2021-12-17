@@ -1,11 +1,24 @@
 #include "advent-of-code.h"
 
+/*
+** Part two of day three took a lot out of me.
+** I had to look up some minor things, but more or less was able to rethink this
+*myself.
+**
+** Woo hoo!
+**
+*/
+
 void part_one(std::vector<std::string> &raw_input);
-void part_two(std::vector<std::string> raw_input);
-std::vector<std::string> calculate_oxygen(std::vector<std::string> input_list,
-                                          int &position);
-std::vector<std::string> calculate_co2(std::vector<std::string> input_list,
-                                       int &position);
+void part_two(std::vector<std::string> &raw_input);
+
+std::vector<int> count_ones(std::vector<std::string> &raw_input);
+
+int calculate_gamma_rate(std::vector<int> counter,
+                         std::vector<std::string> input);
+int calculate_epsilon_rate(std::vector<int> counter,
+                           std::vector<std::string> input, int gamma_rate);
+int calculate_rating(std::vector<std::string> &raw_input, std::string option);
 
 int main() {
   std::vector<std::string> raw_input{read_input(2021, 3)};
@@ -16,88 +29,94 @@ int main() {
   return 0;
 }
 
+std::vector<int> count_ones(std::vector<std::string> &raw_input) {
+  std::vector<int> ones_pos{};
+  for (int i{0}; i < static_cast<int>(raw_input[0].size()); ++i) {
+    ones_pos.push_back(0);
+  }
+
+  for (const std::string &line : raw_input) {
+    for (int i{0}; i < static_cast<int>(line.size()); ++i) {
+      if (line[i] == '1') {
+        ++ones_pos[i];
+      }
+    }
+  }
+
+  return ones_pos;
+}
+
 void part_one(std::vector<std::string> &raw_input) {
-  std::vector<int> counter_vec(12, 0);
+  std::vector<int> counter{count_ones(raw_input)};
 
-  std::string gamma_bin_str{""};
-  std::string epsilon_bin_str{""};
+  int gamma_rate{calculate_gamma_rate(counter, raw_input)};
+  int epsilon_rate{calculate_epsilon_rate(counter, raw_input, gamma_rate)};
 
-  for (auto &raw_number : raw_input) {
-    for (int i{0}; i < raw_number.size(); i++) {
-      std::string raw_digit{(1, raw_number[i])};
-      int digit{std::stoi(raw_digit)};
-
-      counter_vec[i] += digit;
-    }
-  }
-
-  for (auto &x : counter_vec) {
-    int num_ones{x};
-    int num_zeroes{raw_input.size() - num_ones};
-
-    if (num_ones > num_zeroes) {
-      gamma_bin_str += "1";
-      epsilon_bin_str += "0";
-    } else {
-      gamma_bin_str += "0";
-      epsilon_bin_str += "1";
-    }
-  }
-
-  int gamma_value{std::stoi(gamma_bin_str, 0, 2)};
-  int epsilon_value{std::stoi(epsilon_bin_str, 0, 2)};
-
-  std::cout << "Part One: " << gamma_value * epsilon_value << std::endl;
+  std::cout << "Part One: " << gamma_rate * epsilon_rate << std::endl;
 }
 
-void part_two(std::vector<std::string> raw_input) {
-  std::vector<std::string> modified_oxygen{};
-  std::vector<std::string> modified_co2{};
+int calculate_gamma_rate(std::vector<int> counter,
+                         std::vector<std::string> input) {
+  int gamma_rate{0};
 
-  for (int i{0}; i < raw_input[0].size(); i++) {
-    std::vector<std::string> temp_ox{calculate_oxygen(modified_oxygen, i)};
-    modified_oxygen.clear();
-    modified_oxygen.assign(temp_ox, temp_ox.size());
-    // modified_co2 = calculate_co2(modified_co2, i);
-  }
-
-  for (auto x : modified_oxygen) {
-    std::cout << x << std::endl;
-  }
-}
-
-std::vector<std::string> calculate_oxygen(std::vector<std::string> input_list,
-                                          int &position) {
-  int max{0};
-  std::vector<std::string> modified_list{0};
-
-  for (auto &raw_number : input_list) {
-    std::string raw_digit{(1, raw_number[position])};
-    int digit{std::stoi(raw_digit)};
-
-    max += digit;
-  }
-
-  int num_ones{max};
-  auto num_zeroes{input_list.size() - num_ones};
-
-  if (num_ones > num_zeroes) {
-    max = 1;
-  } else if (num_ones < num_zeroes) {
-    max = 0;
-  } else {
-    max = 1;
-  }
-
-  for (auto x : input_list) {
-    std::string raw_digit{(1, x[position])};
-    int digit{std::stoi(raw_digit)};
-
-    if (digit == max) {
-      modified_list.push_back(x);
+  for (auto count_ones : counter) {
+    int count_zeroes{static_cast<int>(input.size()) - count_ones};
+    if (count_ones > count_zeroes) {
+      ++gamma_rate;
     }
+
+    gamma_rate <<= 1;
   }
+
+  gamma_rate >>= 1;
+
+  return gamma_rate;
 }
 
-std::vector<std::string> calculate_co2(std::vector<std::string> input_list,
-                                       int &position) {}
+int calculate_epsilon_rate(std::vector<int> counter,
+                           std::vector<std::string> input, int gamma_rate) {
+  int significant_bit_mask{0};
+
+  for (int i{0}; i < static_cast<int>(counter.size()); ++i) {
+    ++significant_bit_mask;
+    significant_bit_mask <<= 1;
+  }
+
+  significant_bit_mask >>= 1;
+
+  return (~gamma_rate & significant_bit_mask);
+}
+
+void part_two(std::vector<std::string> &raw_input) {
+  int oxygen_generator_rating{calculate_rating(raw_input, "oxygen")};
+  int co2_scrubber_rating{calculate_rating(raw_input, "co2")};
+
+  std::cout << "Part Two: " << oxygen_generator_rating * co2_scrubber_rating
+            << std::endl;
+}
+
+int calculate_rating(std::vector<std::string> &raw_input, std::string option) {
+  int curr_bit_pos{0};
+  std::vector<std::string> input{raw_input};
+
+  while (static_cast<int>(input.size()) != 1) {
+    std::vector<int> counter{count_ones(input)};
+    int count_ones{counter[curr_bit_pos]};
+    int count_zeroes{static_cast<int>(input.size()) - count_ones};
+
+    char filter{option == "oxygen" ? count_ones >= count_zeroes ? '1' : '0'
+                : count_ones >= count_zeroes ? '0'
+                                             : '1'};
+
+    std::vector<std::string> new_input;
+    std::copy_if(input.begin(), input.end(), std::back_inserter(new_input),
+                 [curr_bit_pos, filter](const std::string &line) {
+                   return line[curr_bit_pos] == filter;
+                 });
+
+    input = new_input;
+    ++curr_bit_pos;
+  }
+
+  return std::stoi(input[0], nullptr, 2);
+}
