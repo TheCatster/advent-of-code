@@ -57,7 +57,7 @@ void part_one(std::vector<std::string> &raw_input) {
 
 int calculate_gamma_rate(std::vector<int> counter,
                          std::vector<std::string> input) {
-  int gamma_rate{0};
+  uint16_t gamma_rate{0};
 
   for (auto count_ones : counter) {
     int count_zeroes{static_cast<int>(input.size()) - count_ones};

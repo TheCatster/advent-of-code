@@ -1,77 +1,77 @@
 #!/bin/sh
 # -*- coding: utf-8 -*-
+### This script is to be run if you are working outside of an IDE.
 ### These are preconfigured for my needs. This script isn't designed to be used by everyone as-is.
-function intro {
-    echo "🎄🎄🎄 Welcome to Advent of Code runner! 🎄🎄🎄"
+intro() {
+  echo "🎄🎄🎄 Welcome to Advent of Code runner! 🎄🎄🎄"
 
-    echo "Please enter the file extension of the language to run: "
+  echo "Please enter the file extension of the language to run: "
 
-    read AOC_LANGUAGE
+  read -r AOC_LANGUAGE
 
-    echo "Please enter the year number you would like to run: "
+  echo "Please enter the year number you would like to run: "
 
-    read AOC_YEAR
+  read -r AOC_YEAR
 
-    echo "Please enter the day number you would like to run: "
+  echo "Please enter the day number you would like to run: "
 
-    read AOC_DAY
+  read -r AOC_DAY
 
-    # Just to get an extra newline in between the output:
-    echo ""
+  # Just to get an extra newline in between the output:
+  echo ""
 }
 
-function retrieve_input {
-    INPUT_FILE="input/$AOC_YEAR/$AOC_DAY"
+retrieve_input() {
+  INPUT_FILE="input/$AOC_YEAR/$AOC_DAY"
 
-    if [[ ! -f "$INPUT_FILE" ]]; then
-        echo "First time running this year and date: retrieving input!"
+  if [ ! -f "$INPUT_FILE" ]; then
+    echo "First time running this year and date: retrieving input!"
 
-        if [ -f .env ]; then
-            export $(cat .env | sed 's/#.*//g' | xargs)
-        else
-            echo "No .env file! Please ensure one exists, and it contains your AOC_TOKEN."
-            exit 1
-        fi
-
-        URL="https://adventofcode.com/$AOC_YEAR/day/$AOC_DAY/input"
-
-        mkdir -p "input/$AOC_YEAR"
-
-        curl -L -b "session=$AOC_TOKEN" -H "User-Agent: advent-of-code thecatster" -o "$INPUT_FILE" "$URL"
-
-        if [ ! $? -eq 0 ]; then
-            echo "Failed to retrieve the input file for the year $AOC_YEAR, day $AOC_DAY."
-            exit 1
-        fi
+    if [ -f .env ]; then
+      export "$(sed 's/#.*//g' .env | xargs)"
+    else
+      echo "No .env file! Please ensure one exists, and it contains your AOC_TOKEN."
+      exit 1
     fi
 
+    URL="https://adventofcode.com/$AOC_YEAR/day/$AOC_DAY/input"
+
+    mkdir -p "input/$AOC_YEAR"
+
+    if ! curl -L -b "session=$AOC_TOKEN" -H "User-Agent: advent-of-code thecatster" -o "$INPUT_FILE" "$URL"; then
+      echo "Failed to retrieve the input file for the year $AOC_YEAR, day $AOC_DAY."
+      exit 1
+    fi
+  fi
+
 }
 
-function execute_file {
-    case $AOC_LANGUAGE in
-        rs)
-            echo "Rust is currently not implemented."
-            exit 1
-            ;;
+execute_file() {
+  case $AOC_LANGUAGE in
+  rs)
+    echo "Rust is currently not implemented."
+    exit 1
+    ;;
 
-        cpp)
-            cmake -B "cpp/build" -S "cpp" && cmake --build "cpp/build" && "cpp/build/src/$AOC_YEAR/day$AOC_DAY"
-            if [ ! $? -eq 0 ]; then
-                echo "File did not successfully execute."
-                exit 1
-            fi
-            ;;
+  cpp)
+    if cmake -B "cpp/build" -S "cpp" && cmake --build "cpp/build" && cpp/build/src/"$AOC_YEAR"/day"$AOC_DAY"; then
+      true
+    else
+      echo "File did not successfully execute."
+      exit 1
+    fi
+    ;;
 
-        kt)
-            echo "Kotlin is currently not implemented."
-            exit 1
-            ;;
+  kt)
+    echo "Kotlin is currently not implemented."
+    exit 1
+    ;;
 
-        *)
-            echo "Unknown language, exiting."
-            exit 1
-            ;;
-    esac
+  *)
+    echo "Unknown language, exiting."
+    exit 1
+    ;;
+  esac
 }
 
 intro
