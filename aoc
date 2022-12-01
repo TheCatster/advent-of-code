@@ -49,8 +49,8 @@ retrieve_input() {
 execute_file() {
   case $AOC_LANGUAGE in
   rs)
-    echo "Rust is currently not implemented."
-    exit 1
+    cd "rs/$AOC_YEAR/day$AOC_DAY/" || exit 1
+    cargo run
     ;;
 
   cpp)

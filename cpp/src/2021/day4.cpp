@@ -17,12 +17,10 @@ void part_one(std::vector<std::string> &raw_input) {
   std::vector<std::string> called_numbers{split(raw_input[0], ",")};
   std::vector<std::vector<std::vector<std::string>>> boards{split_boards(raw_input)};
   
-  return;
-}
+  }
 
 void part_two(std::vector<std::string> &raw_input) {
-  return;
-}
+  }
 
 std::vector<std::vector<std::vector<std::string>>> split_boards(std::vector<std::string> raw_input) {
   std::vector<std::vector<std::vector<std::string>>> boards;
