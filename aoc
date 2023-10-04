@@ -3,7 +3,7 @@
 ### This script is to be run if you are working outside of an IDE.
 ### These are preconfigured for my needs. This script isn't designed to be used by everyone as-is.
 intro() {
-  echo "🎄🎄🎄 Welcome to Advent of Code runner! 🎄🎄🎄"
+  echo "󰐅󰐅󰐅 Welcome to Advent of Code runner! 󰐅󰐅󰐅"
 
   echo "Please enter the file extension of the language to run: "
 
@@ -53,8 +53,8 @@ execute_file() {
     cargo run
     ;;
 
-  cpp)
-    if cmake -B "cpp/build" -S "cpp" && cmake --build "cpp/build" && cpp/build/src/"$AOC_YEAR"/day"$AOC_DAY"; then
+  c)
+    if cmake -B "c/build" -S "cpp" && cmake --build "c/build" && c/build/src/"$AOC_YEAR"/day"$AOC_DAY"; then
       true
     else
       echo "File did not successfully execute."
@@ -62,9 +62,9 @@ execute_file() {
     fi
     ;;
 
-  kt)
-    echo "Kotlin is currently not implemented."
-    exit 1
+  go)
+    echo "Go support is not yet implemented."
+    exit 0
     ;;
 
   *)
