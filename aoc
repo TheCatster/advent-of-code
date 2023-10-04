@@ -54,7 +54,7 @@ execute_file() {
     ;;
 
   c)
-    if cmake -B "c/build" -S "cpp" && cmake --build "c/build" && c/build/src/"$AOC_YEAR"/day"$AOC_DAY"; then
+    if cmake -B "c/build" -S "c" && cmake --build "c/build" -- --quiet && c/build/"y${AOC_YEAR}d${AOC_DAY}"; then
       true
     else
       echo "File did not successfully execute."
