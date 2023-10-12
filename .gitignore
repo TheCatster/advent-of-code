@@ -6,6 +6,12 @@ tmp/
 .cache
 .dir-locals.el
 
+# Outputs
+aocc
+*.o
+bin/
+lib/
+
 ## CMake
 build
 CMakeLists.txt.user
