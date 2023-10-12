@@ -51,6 +51,8 @@ all: $(OBJECTS)
 
 # Rule for object binaries compilation
 $(LIBDIR)/%.o: $(SRCDIR)/%.c
+	mkdir -p $(BINDIR)
+	mkdir -p $(LIBDIR)
 	$(CC) -c $^ -o $@ $(DEBUG) $(CFLAGS) $(LIBS)
 
 # Rule for cleaning the project
