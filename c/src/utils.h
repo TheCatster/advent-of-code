@@ -1,5 +1,4 @@
-#ifndef UTILS_H_
-#define UTILS_H_
+#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,4 +8,3 @@
 
 char *read_line(FILE *file);
 char **read_all_lines(const char *filename, size_t *line_count);
-#endif // UTILS_H_
