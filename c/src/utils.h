@@ -7,4 +7,4 @@
 #define INITIAL_LINES_SIZE 512
 
 char *read_line(FILE *file);
-char **read_all_lines(const char *filename, size_t *line_count);
+char **read_input(const char *filename, size_t *line_count);

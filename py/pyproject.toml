@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "aoc"
+version = "0.1.0"
+description = "Daniil Rose's progress through advent of code"
+authors = ["Daniil Rose <daniil.rose@posteo.org>"]
+license = "GPLv3"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -48,18 +48,18 @@ retrieve_input() {
 
 execute_file() {
   case $AOC_LANGUAGE in
+  py)
+    cd "py/" || exit 1
+    poetry run python aoc.py "$AOC_YEAR" "$AOC_DAY"
+    ;;
+
   rs)
     cd "rs/$AOC_YEAR/day$AOC_DAY/" || exit 1
     cargo run
     ;;
 
   c)
-    if cmake -B "c/build" -S "c" && cmake --build "c/build" -- --quiet && c/build/"y${AOC_YEAR}d${AOC_DAY}"; then
-      true
-    else
-      echo "File did not successfully execute."
-      exit 1
-    fi
+    cmake -B "c/build" -S "c" && cmake --build "c/build" -- --quiet && c/build/"y${AOC_YEAR}d${AOC_DAY}"
     ;;
 
   go)
@@ -71,6 +71,7 @@ execute_file() {
     echo "Unknown language, exiting."
     exit 1
     ;;
+
   esac
 }
 

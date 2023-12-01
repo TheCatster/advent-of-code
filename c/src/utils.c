@@ -42,7 +42,7 @@ char *read_line(FILE *file) {
   return NULL;
 }
 
-char **read_all_lines(const char *filename, size_t *line_count) {
+char **read_input(const char *filename, size_t *line_count) {
   FILE *file = fopen(filename, "r");
   if (!file) {
     perror("Failed to open file");
