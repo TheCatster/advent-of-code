@@ -67,6 +67,9 @@ execute_file() {
     exit 0
     ;;
 
+  el)
+    emacs -Q --batch -l "el/$AOC_YEAR/day$AOC_DAY.el" --eval '(message "Part 1 Result: %s\nPart 2 Result: %s" (part-one) (part-two))'
+    ;;
   *)
     echo "Unknown language, exiting."
     exit 1
